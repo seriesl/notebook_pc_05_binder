@@ -1,6 +1,6 @@
 name: pc05
 channels:
-    - conda-forge gcc7
+    - conda-forge/label/gcc7
 dependencies:
     - numpy
     - scipy
