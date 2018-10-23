@@ -1,8 +1,6 @@
 name: pc05
-channels:
-    - conda-forge gcc7
 dependencies:
     - numpy
     - scipy
     - bokeh
-    - gcc
+    - gcc_linux_64
