@@ -3,5 +3,4 @@ dependencies:
     - numpy
     - scipy
     - bokeh
-    - gcc_linux-64
     - gfortran_linux-64 
