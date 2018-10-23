@@ -1,0 +1,9 @@
+name: pc05
+channels:
+    - conda-forge
+dependencies:
+    - jupyterlab
+    - numpy
+    - scipy
+    - bokeh
+    - gcc
