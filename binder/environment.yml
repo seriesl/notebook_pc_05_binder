@@ -1,8 +1,7 @@
 name: pc05
 channels:
-    - conda-forge
+    - conda-forge gcc7
 dependencies:
-    - jupyterlab
     - numpy
     - scipy
     - bokeh
