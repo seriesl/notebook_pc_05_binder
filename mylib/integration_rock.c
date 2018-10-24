@@ -8,11 +8,6 @@ void rock4_integration(double tini, double tend, int n, double *yini, double *y,
   // time and time step
   double t, dt;
 
-  // initialization of t, dt and y
-  t = tini;
-  dt = 1.e-6;
-  for (int i=0; i<n; ++i) y[i] = yini[i];
-
   //  required tolerance
   double rtol = tol;
   double atol = rtol;
@@ -20,6 +15,20 @@ void rock4_integration(double tini, double tend, int n, double *yini, double *y,
   // iwork : integer array of length 12 that gives information
   //         on how the problem is to be solved
   int iwork[12];
+
+  // workspace 
+  double work[8*n];
+
+  // report on successfulness upon return
+  int idid;
+
+  int i;
+
+  // initialization of t, dt and y
+  t = tini;
+  dt = 1.e-6;
+  for (i=0; i<n; ++i) y[i] = yini[i];
+
   // iwork[0]=0  rock4 attempts to compute the spectral radius internally
   // iwork[1]=1  the jacobian is constant 
   // iwork[2]=0  return solution at tend
@@ -28,12 +37,6 @@ void rock4_integration(double tini, double tend, int n, double *yini, double *y,
   iwork[1] = 1;
   iwork[2] = 0;
   iwork[3] = 0;
-
-  // workspace 
-  double work[8*n];
-
-  // report on successfulness upon return
-  int idid;
 
   // directly calling fortran
   rock4(&n, &t, &tend, &dt , y, fcn, &atol, &rtol, work, iwork, &idid);
@@ -55,11 +58,6 @@ void rock4_integration_dt(double tini, double tend, int n, double *yini, double 
   // time and time step
   double t, dt;
 
-  // initialization of t, dt and y
-  t = tini;
-  dt = 1.e-6;
-  for (int i=0; i<n; ++i) y[i] = yini[i];
-
   //  required tolerance
   double rtol = tol;
   double atol = rtol;
@@ -67,6 +65,20 @@ void rock4_integration_dt(double tini, double tend, int n, double *yini, double 
   // iwork : integer array of length 12 that gives information
   //         on how the problem is to be solved
   int iwork[12];
+
+  // workspace 
+  double work[8*n];
+
+  // report on successfulness upon return
+  int idid;
+   
+  int i, icmpt;
+
+  // initialization of t, dt and y
+  t = tini;
+  dt = 1.e-6;
+  for (i=0; i<n; ++i) y[i] = yini[i];
+
   // iwork[0]=0  rock4 attempts to compute the spectral radius internally
   // iwork[1]=1  the jacobian is constant 
   // iwork[2]=1  
@@ -76,18 +88,11 @@ void rock4_integration_dt(double tini, double tend, int n, double *yini, double 
   iwork[2] = 1;
   iwork[3] = 0;
 
-  // workspace 
-  double work[8*n];
-
-  // report on successfulness upon return
-  int idid;
-   
-  int icmpt = 0;
   tsol[0] = tini;
-
-  // directly calling fortran
+  icmpt = 0;
   do
   {
+    // directly calling fortran
     rock4(&n, &t, &tend, &dt , y, fcn, &atol, &rtol, work, iwork, &idid);
     //printf(" t = %lf\n", t);
     icmpt++;
